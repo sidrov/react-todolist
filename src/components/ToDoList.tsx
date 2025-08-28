@@ -1,5 +1,6 @@
 import ToDoItem from "./ToDoItem";
 import type { Task } from "./ToDoItem";
+import "../themes/ToDoList.css";
 
 interface ToDoListProps {
   tasks: Task[];
@@ -9,8 +10,8 @@ interface ToDoListProps {
 
 function ToDoList({ tasks, onDelete, onToggle }: ToDoListProps) {
   return (
-    <div>
-      {tasks.map((task) => (
+    <div className="list-container">
+      {[...tasks].reverse().map((task) => (
         <ToDoItem
           key={task.id}
           task={task}

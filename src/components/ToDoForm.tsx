@@ -10,9 +10,8 @@ function ToDoForm({ addTask }) {
   });
 
   const handleChange = (e) => {
-    const { name, value, type, checked, files } = e.target;
-    const val =
-      type === "checkbox" ? checked : type === "file" ? files[0] : value;
+    const { name, value, type, checked } = e.target;
+    const val = type == "checkbox" ? checked : value;
     setFormData({
       ...formData,
       [name]: val,
@@ -21,6 +20,7 @@ function ToDoForm({ addTask }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const todoItem = {
       title: formData.title,
       description: formData.description,
@@ -59,10 +59,10 @@ function ToDoForm({ addTask }) {
             onChange={handleChange}
           />
         </div>
+        <button type="submit" className="submitForm">
+          Aggiungi ToDo
+        </button>
       </form>
-      <button className="submitForm" onClick={handleSubmit}>
-        Aggiungi ToDo
-      </button>
     </div>
   );
 }
