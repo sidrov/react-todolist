@@ -1,35 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import "./App.css";
+import ToDoForm from "./components/ToDoForm";
+import ToDoList from "./components/ToDoList";
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [tasks, setTasks] = useState([
+    {
+      id: 1,
+      title: "Fare i piatti",
+      description: "Ricorda il piatto dentro il forno",
+      completed: false,
+    },
+    {
+      id: 2,
+      title: "Pulire la casa",
+      description: "Vengono i parenti, fallo bene",
+      completed: true,
+    },
+  ]);
+
+  const addTask = (task: { title: string; description: string }) => {
+    setTasks([...tasks, { ...task, id: Math.random(), completed: false }]);
+  };
+
+  const deleteTask = (id: number) => {
+    setTasks(tasks.filter((t) => t.id !== id));
+  };
+
+  const toggleTask = (id: number) => {
+    setTasks(
+      tasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+    );
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="todo-app-container">
+      <ToDoForm addTask={addTask} />
+      <ToDoList tasks={tasks} onDelete={deleteTask} onToggle={toggleTask} />
+    </div>
+  );
 }
 
-export default App
+export default App;
