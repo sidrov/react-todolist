@@ -15,7 +15,7 @@ interface ToDoItemProps {
 
 function ToDoItem({ task, onDelete, onToggle }: ToDoItemProps) {
   return (
-    <div className="card-container">
+    <div className={`card-container ${task.completed ? "completed" : ""}`}>
       <h2 className="card-title">{task.title}</h2>
       <p className="card-description">{task.description}</p>
       <p className="card-completed">

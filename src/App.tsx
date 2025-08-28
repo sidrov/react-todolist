@@ -19,6 +19,14 @@ function App() {
     },
   ]);
 
+  const [filter, setFilter] = useState<"all" | "completed" | "active">("all");
+
+  const filteredTasks = tasks.filter((t) => {
+    if (filter === "completed") return t.completed;
+    if (filter === "active") return !t.completed;
+    return true;
+  });
+
   const addTask = (task: { title: string; description: string }) => {
     setTasks([...tasks, { ...task, id: Math.random(), completed: false }]);
   };
@@ -29,15 +37,29 @@ function App() {
 
   const toggleTask = (id: number) => {
     setTasks(
-      tasks.map((t) => (t.id === id ? { ...t, completed: !t.completed } : t))
+      tasks.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task
+      )
     );
   };
 
   return (
-    <div className="todo-app-container">
-      <ToDoForm addTask={addTask} />
-      <ToDoList tasks={tasks} onDelete={deleteTask} onToggle={toggleTask} />
-    </div>
+    <>
+      <div className="navbar">
+        <button onClick={() => setFilter("all")}>Tutte</button>
+        <button onClick={() => setFilter("active")}>Non completate</button>
+        <button onClick={() => setFilter("completed")}>Completate</button>
+      </div>
+
+      <div className="main-content">
+        <ToDoForm addTask={addTask} />
+        <ToDoList
+          tasks={filteredTasks}
+          onDelete={deleteTask}
+          onToggle={toggleTask}
+        />
+      </div>
+    </>
   );
 }
 
