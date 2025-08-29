@@ -27,6 +27,7 @@ function ToDoForm({ addTask }) {
       completed: formData.completed,
     };
     addTask(todoItem);
+
     setFormData({
       title: "",
       description: "",
