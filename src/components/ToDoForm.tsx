@@ -1,7 +1,17 @@
 import { useState } from "react";
 import "../themes/ToDoForm.css";
 
-function ToDoForm({ addTask }) {
+export type Task = {
+  title: string;
+  description: string;
+  completed: boolean;
+};
+
+type TodoFormProps = {
+  addTask: (task: Task) => void;
+};
+
+function ToDoForm({ addTask }: TodoFormProps) {
   //   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     title: "",
@@ -9,8 +19,11 @@ function ToDoForm({ addTask }) {
     completed: false,
   });
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value, type } = e.target;
+    const checked = (e.target as HTMLInputElement).checked;
     const val = type == "checkbox" ? checked : value;
     setFormData({
       ...formData,
@@ -18,7 +31,7 @@ function ToDoForm({ addTask }) {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     const todoItem = {
