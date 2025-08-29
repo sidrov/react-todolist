@@ -1,4 +1,4 @@
-# ToDoList-App
+# React To-Do-List
 
 A simple and modern To-Do List application built with React, TypeScript, and Vite.
 
