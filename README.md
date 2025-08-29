@@ -19,8 +19,8 @@ A simple and modern To-Do List application built with React, TypeScript, and Vit
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sidrov/ToDoList-App-test.git
-cd ToDoList-App-test
+git clone https://github.com/sidrov/react-todolist.git
+cd react-todolist
 ```
 
 ### 2. Install dependencies
